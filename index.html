@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Executive Function Tester</title>
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; background: #111; }
+    #game { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+    canvas { display: block; }
+  </style>
+
+  <!-- Force fresh JS every load — local dev only -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+</head>
+<body>
+  <div id="game"></div>
+
+  <!-- Phaser 3 from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
+
+  <!-- Cache-busted local scripts (timestamp injected at load time) -->
+  <script>
+    const _v = "?v=" + Date.now();
+    const _scripts = [
+      "runtime/gvars.js",
+      "runtime/h.js",
+      "runtime/sizing.js",
+      "runtime/instructions.js",
+      "scenes/LoadingScene.js",
+      "scenes/GameScene.js",
+      "scenes/HudScene.js",
+      "scenes/EndScene.js",
+      "main.js",
+    ];
+    _scripts.forEach((src) => {
+      document.write('<script src="' + src + _v + '"><\/script>');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,446 @@
+{
+	"background": {
+		"url": "Grass",
+		"namespace": "game",
+		"type": "tilesprite",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"size": {
+			"width": "100%",
+			"height": "100%"
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": true
+	},
+	"SkyBlue": {
+		"url": "SkyBlue",
+		"namespace": "game",
+		"type": "tilesprite",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"size": {
+			"width": "100%",
+			"height": "100%"
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	},
+	"resultGrass": {
+		"url": "resultGrass",
+		"namespace": "game",
+		"type": "tilesprite",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	},
+	"BBQ": {
+		"url": "BBQ",
+		"namespace": "game",
+		"type": "sprite",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	},
+	"table": {
+		"url": "table",
+		"namespace": "game",
+		"type": "sprite",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 1
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	},
+	"speechBubbleLeg": {
+		"url": "speechBubbleLeg",
+		"namespace": "game",
+		"type": "sprite",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 1
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	},
+	"speechBubble": {
+		"url": "speechBubble",
+		"namespace": "game",
+		"type": "tilesprite",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 1
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	},
+	"spatula": {
+		"url": "spatula",
+		"namespace": "game",
+		"type": "sprite",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.1
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	},
+	"smoke": {
+		"url": "smoke",
+		"namespace": "game",
+		"type": "sprite",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	},
+	"mountains": {
+		"url": "mountain_endscreen",
+		"namespace": "game",
+		"type": "tilesprite",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"size":{
+			"width":"100%",
+			"height":618
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	},
+	"readyCircle": {
+		"url": "readyCircle",
+		"namespace": "game",
+		"type": "sprite",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	},
+	"rawCircle": {
+		"url": "rawCircle",
+		"namespace": "game",
+		"type": "sprite",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"origin": {
+			"x": 0,
+			"y": 0
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	},
+	"thermometerBack": {
+		"url": "thermometerBack",
+		"namespace": "game",
+		"type": "sprite",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	},
+	"thermometerFront": {
+		"url": "thermometerFront",
+		"namespace": "game",
+		"type": "sprite",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	},
+	"thermostat": {
+		"url": "thermostat",
+		"namespace": "game",
+		"type": "image",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	},
+	"thermostat_glass": {
+		"url": "thermostat_glass",
+		"namespace": "game",
+		"type": "image",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	},
+	"pointer": {
+		"url": "pointer",
+		"namespace": "game",
+		"type": "image",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"origin": {
+			"x": 0,
+			"y": 0.5
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	},
+	"thermometerFill": {
+		"url": "thermometerFill",
+		"namespace": "game",
+		"type": "tilesprite",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 1
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	},
+	"burger": {
+		"url": "burger",
+		"namespace": "game",
+		"prefix": "burger",
+		"type": "anim",
+		"key": "burger",
+		"frames": {
+			"begin": 0,
+			"end": 2
+		},
+		"duration": 0,
+		"repeat": 0,
+		"yoyo": false,
+		"visible": true,
+		"spawnOnStart": true
+	},
+	"chicken": {
+		"url": "chicken",
+		"namespace": "game",
+		"prefix": "chicken",
+		"type": "anim",
+		"key": "chicken",
+		"frames": {
+			"begin": 0,
+			"end": 2
+		},
+		"duration": 0,
+		"repeat": 0,
+		"yoyo": false,
+		"visible": true,
+		"spawnOnStart": true
+	},
+	"sausage": {
+		"url": "sausage",
+		"namespace": "game",
+		"prefix": "sausage",
+		"type": "anim",
+		"key": "sausage",
+		"frames": {
+			"begin": 0,
+			"end": 2
+		},
+		"duration": 0,
+		"repeat": 0,
+		"yoyo": false,
+		"visible": true,
+		"spawnOnStart": true
+	},
+	"circlePart": {
+		"url": "circlePart",
+		"namespace": "game",
+		"prefix": "circlePart",
+		"type": "anim",
+		"key": "circlePart",
+		"frames": {
+			"begin": 0,
+			"end": 3
+		},
+		"duration": 0,
+		"repeat": 0,
+		"yoyo": false,
+		"visible": true,
+		"spawnOnStart": true
+	},
+	"circle": {
+		"url": "circle",
+		"namespace": "game",
+		"prefix": "circle",
+		"type": "anim",
+		"key": "circle",
+		"frames": {
+			"begin": 0,
+			"end": 3
+		},
+		"duration": 0,
+		"repeat": 0,
+		"yoyo": false,
+		"visible": true,
+		"spawnOnStart": true
+	},
+	"flame": {
+		"url": "flame",
+		"namespace": "game",
+		"prefix": "flame",
+		"type": "anim",
+		"key": "flame",
+		"frames": {
+			"begin": 0,
+			"end": 5
+		},
+		"duration": 1000,
+		"repeat": 500,
+		"yoyo": false,
+		"visible": true,
+		"spawnOnStart": true
+	},
+	"chef": {
+		"url": "chef",
+		"namespace": "game",
+		"prefix": "chef",
+		"type": "anim",
+		"key": "chef",
+		"frames": {
+			"begin": 0,
+			"end": 4
+		},
+		"duration": 0,
+		"repeat": 0,
+		"yoyo": false,
+		"visible": true,
+		"spawnOnStart": true
+	},
+	"bgprop0": {
+		"url": "cloth_melon",
+		"namespace": "game",
+		"type": "image",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	},
+	"bgprop1": {
+		"url": "basket",
+		"namespace": "game",
+		"type": "image",
+		"position": {
+			"x": "50%",
+			"y": "50%"
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5
+		},
+		"centered": true,
+		"visible": true,
+		"spawnOnStart": false
+	}
+}
