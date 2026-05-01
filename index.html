@@ -2,11 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <title>Executive Function Tester</title>
   <style>
-    html, body { margin: 0; padding: 0; height: 100%; background: #111; }
-    #game { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
-    canvas { display: block; }
+    html, body {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      background: #111;
+      overflow: hidden;
+      overscroll-behavior: none;
+      touch-action: manipulation;
+    }
+    #game { position: fixed; inset: 0; }
+    canvas { display: block; touch-action: manipulation; }
   </style>
 
   <!-- Force fresh JS every load — local dev only -->

@@ -400,6 +400,12 @@ class Meat {
     this.sprite = scene.add.sprite(x, y, `${type}_raw`)
       .setScale(meatScale)
       .setInteractive({ useHandCursor: true });
+
+    // Cache the arc radius now, based on the final meat size. Don't recompute
+    // from sprite.displayWidth later — the spawn-in tween and ready-pulse
+    // both change scale, which would make the arc spiral outward.
+    this.arcRadius = this.sprite.displayWidth * 0.5 * (gvars.arcRadiusFactor || 1.05);
+
     this.sprite.setScale(meatScale * 0.2);
     scene.tweens.add({ targets: this.sprite, scale: meatScale, duration: 180, ease: "Back.Out" });
 
@@ -430,10 +436,7 @@ class Meat {
     // 0..220 uses circlePart0 (raw, red), 220..360 uses circlePart1 (ready, orange).
     const rad = Phaser.Math.DegToRad(deg - 90); // start at top
     // lineRadius=70 was native at BBQ.width=1337; scale with current display
-    // Arc sits just outside the meat sprite — radius = half the meat's
-    // current display width, scaled by gvars.arcRadiusFactor (1.0 = on the
-    // meat edge, >1 = ring slightly larger than the meat).
-    const R = this.sprite.displayWidth * 0.5 * (gvars.arcRadiusFactor || 1.05);
+    const R = this.arcRadius;
     const px = this.x + R * Math.cos(rad);
     const py = this.y + R * Math.sin(rad);
     const frame = deg < 220 ? "circlePart0" : "circlePart1";

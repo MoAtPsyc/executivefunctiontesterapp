@@ -1,11 +1,12 @@
-// Window/canvas sizing helpers — match the API names the original used.
+// Use the actual viewport so the canvas fills the device on phones/tablets
+// (no fixed-aspect letterboxing). Phaser's Scale.FIT then keeps things
+// proportional inside this size.
 function getGameSize() {
-  const w = Math.min(window.innerWidth || 800, 1280);
-  const h = Math.min(window.innerHeight || 600, 800);
+  const w = window.innerWidth  || document.documentElement.clientWidth  || 800;
+  const h = window.innerHeight || document.documentElement.clientHeight || 600;
   return { width: w, height: h };
 }
 
 function resize(width, height) {
-  // Original did aspect-ratio fitting; Phaser's Scale.FIT handles that for us.
   return { width, height };
 }

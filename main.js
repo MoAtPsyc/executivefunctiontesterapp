@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
     scale: {
       mode: Phaser.Scale.FIT,
       autoCenter: Phaser.Scale.CENTER_BOTH,
+      width: size.width,
+      height: size.height,
     },
 
     scene: [LoadingScene, GameScene, HudScene, EndScene],
@@ -26,4 +28,25 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   window.game = new Phaser.Game(config);
+
+  // Re-fit and re-layout when the viewport changes (orientation flip,
+  // browser resize, mobile chrome bars showing/hiding). Phaser's FIT mode
+  // rescales the canvas, but a full restart of GameScene re-runs the layout
+  // math (BBQ size, grid, perimeter) against the new dimensions.
+  let resizeT = null;
+  const onResize = () => {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(() => {
+      const s = getGameSize();
+      window.game.scale.resize(s.width, s.height);
+      const gs = window.game.scene.getScene("GameScene");
+      const hud = window.game.scene.getScene("HudScene");
+      if (gs && gs.scene.isActive()) {
+        if (hud && hud.scene.isActive()) hud.scene.stop();
+        gs.scene.restart();
+      }
+    }, 200);
+  };
+  window.addEventListener("resize", onResize);
+  window.addEventListener("orientationchange", onResize);
 });
