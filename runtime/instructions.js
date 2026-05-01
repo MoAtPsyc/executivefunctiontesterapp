@@ -11,22 +11,29 @@ window.showInstructions = function (onBegin) {
       #instructions {
         position: fixed; inset: 0; z-index: 1000;
         background: rgba(10,12,18,0.94);
-        display: flex; align-items: center; justify-content: center;
+        display: flex; align-items: stretch; justify-content: center;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
         color: #f0f0f0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 16px;
+        box-sizing: border-box;
       }
       #instructions .panel {
-        max-width: 880px; padding: 32px 40px; background: #1a1d27;
+        margin: auto;
+        width: 100%; max-width: 880px;
+        padding: 24px 28px; background: #1a1d27;
         border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-        display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+        display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+        box-sizing: border-box;
       }
-      #instructions h1 { font-size: 22px; margin: 0 0 12px; color: #ffd86b; }
-      #instructions ul { line-height: 1.7; padding-inline-start: 20px; }
+      #instructions h1 { font-size: 20px; margin: 0 0 10px; color: #ffd86b; }
+      #instructions ul { line-height: 1.6; padding-inline-start: 20px; margin: 0; font-size: 15px; }
       #instructions li { margin-bottom: 6px; }
       #instructions .he { direction: rtl; text-align: right; }
       #instructions .begin {
         grid-column: 1 / -1;
-        margin-top: 8px; padding: 18px 0; font-size: 22px; font-weight: 600;
+        margin-top: 4px; padding: 18px 0; font-size: 20px; font-weight: 600;
         background: #2bb673; color: white; border: 0; border-radius: 12px;
         cursor: pointer; letter-spacing: 1px;
       }
@@ -35,15 +42,27 @@ window.showInstructions = function (onBegin) {
       #instructions .no { color: #ff7a7a; }
       #instructions .examples {
         grid-column: 1 / -1;
-        display: flex; justify-content: center; gap: 28px;
+        display: flex; justify-content: center; gap: 18px; flex-wrap: wrap;
         margin-top: 4px; padding: 14px; background: #11141d; border-radius: 12px;
       }
-      #instructions .ex { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+      #instructions .ex { display: flex; flex-direction: column; align-items: center; gap: 4px; }
       #instructions .ex canvas {
-        width: 110px; height: 110px; background: #2a2a2a; border-radius: 50%;
+        width: 90px; height: 90px; background: #2a2a2a; border-radius: 50%;
       }
-      #instructions .ex .label { font-size: 13px; color: #ccc; }
-      #instructions .ex .label .he { display: block; font-size: 12px; color: #999; }
+      #instructions .ex .label { font-size: 12px; color: #ccc; text-align: center; }
+      #instructions .ex .label .he { display: block; font-size: 11px; color: #999; }
+      /* Phones / narrow screens: stack the two language columns */
+      @media (max-width: 720px) {
+        #instructions .panel {
+          grid-template-columns: 1fr;
+          padding: 18px 18px;
+          gap: 16px;
+        }
+        #instructions h1 { font-size: 18px; }
+        #instructions ul { font-size: 14px; }
+        #instructions .ex canvas { width: 76px; height: 76px; }
+        #instructions .begin { font-size: 18px; padding: 16px 0; }
+      }
     </style>
     <div class="panel">
       <div class="en">
