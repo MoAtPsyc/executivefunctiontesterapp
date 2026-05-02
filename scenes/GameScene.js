@@ -40,7 +40,9 @@ class GameScene extends Phaser.Scene {
     // BBQ / grill sprite — uses custom grill.png. Swap the texture key here
     // if you change the grill artwork.
     this.BBQ = this.add.sprite(W / 2, H / 2, "grill");
-    const bbqScale = Math.min(W, H) / Math.max(this.BBQ.width, this.BBQ.height) * 0.85;
+    // Grill fills the largest square that fits in the viewport — on a
+    // landscape rectangle this leaves equal side gaps for the distractor GIFs.
+    const bbqScale = Math.min(W, H) / Math.max(this.BBQ.width, this.BBQ.height) * 0.98;
     this.BBQ.setScale(bbqScale);
 
     // (Thermometer intentionally omitted — visible difficulty indicator
@@ -129,11 +131,54 @@ class GameScene extends Phaser.Scene {
   }
 
   ensureBombOverlay() {
-    // legacy hook — bomb is now a red background flash, no DOM element needed
+    // Two DOM <img> elements (left + right) — bomb GIF mirrors the distractor
+    // layout so the NoGo cue is visually salient at both side gaps. If a
+    // distractor is currently on one side, the bomb on that side is hidden so
+    // only the opposite side shows the bomb.
+    const make = (id) => {
+      let el = document.getElementById(id);
+      if (!el) {
+        el = document.createElement("img");
+        el.id = id;
+        el.style.position = "fixed";
+        el.style.pointerEvents = "none";
+        el.style.display = "none";
+        el.style.transform = "translate(-50%, -50%)";
+        el.style.zIndex = "10";
+        document.body.appendChild(el);
+      }
+      return el;
+    };
+    this.bombElLeft = make("bomb-overlay-left");
+    this.bombElRight = make("bomb-overlay-right");
+  }
+
+  // Compute the same {x, y, size} the distractor uses for a given side, so
+  // the bomb GIF lines up with (and matches the size of) distractor GIFs.
+  sideSlotMetrics(side) {
+    const canvas = this.game.canvas;
+    const rect = canvas.getBoundingClientRect();
+    const sy = rect.top + rect.height / 2;
+    const bbqLeft  = rect.left + ((this.BBQ.x - this.BBQ.displayWidth / 2) / this.scale.gameSize.width) * rect.width;
+    const bbqRight = rect.left + ((this.BBQ.x + this.BBQ.displayWidth / 2) / this.scale.gameSize.width) * rect.width;
+    const sx = side === "left"
+      ? (rect.left + bbqLeft) / 2
+      : (rect.right + bbqRight) / 2;
+    const sideGap = side === "left" ? (bbqLeft - rect.left) : (rect.right - bbqRight);
+    const size = Math.min(sideGap * 0.95, rect.height * 0.95);
+    return { sx, sy, size };
+  }
+
+  placeSideImg(el, side) {
+    const { sx, sy, size } = this.sideSlotMetrics(side);
+    el.style.width = size + "px";
+    el.style.height = size + "px";
+    el.style.left = sx + "px";
+    el.style.top = sy + "px";
   }
 
   showBombAt(/* pos */) {
-    // Pulsing red overlay over the grass — visible NoGo cue without a sprite.
+    // Pulsing red ring over the grass — peripheral NoGo cue.
     if (this._bombTween) this._bombTween.stop();
     this._bombTween = this.tweens.add({
       targets: this.bombOverlay,
@@ -143,11 +188,29 @@ class GameScene extends Phaser.Scene {
       repeat: -1,
       ease: "Sine.InOut",
     });
+
+    // Show bomb GIFs in both side gaps, matching the distractor slot
+    // geometry. If a distractor is currently active on one side, suppress the
+    // bomb on that same side so they don't overlap.
+    const distractorSide = gvars.distractorActive
+      ? gvars.distractorSchedule[gvars.nextDistractorIndex]?.side
+      : null;
+    const stamp = Date.now();
+    ["left", "right"].forEach((side) => {
+      const el = side === "left" ? this.bombElLeft : this.bombElRight;
+      if (!el) return;
+      if (distractorSide === side) { el.style.display = "none"; return; }
+      this.placeSideImg(el, side);
+      el.src = "assets/images/bomb.gif?t=" + stamp + "_" + side;
+      el.style.display = "block";
+    });
   }
 
   hideBomb() {
     if (this._bombTween) { this._bombTween.stop(); this._bombTween = null; }
     if (this.bombOverlay) this.bombOverlay.setAlpha(0);
+    if (this.bombElLeft) this.bombElLeft.style.display = "none";
+    if (this.bombElRight) this.bombElRight.style.display = "none";
   }
 
   flashBomb() {
@@ -236,20 +299,7 @@ class GameScene extends Phaser.Scene {
   }
 
   showDistractor(gifFile, side) {
-    const canvas = this.game.canvas;
-    const rect = canvas.getBoundingClientRect();
-    const sy = rect.top + rect.height / 2;
-    // BBQ edges in screen pixels
-    const bbqLeft  = rect.left + ((this.BBQ.x - this.BBQ.displayWidth / 2) / this.scale.gameSize.width) * rect.width;
-    const bbqRight = rect.left + ((this.BBQ.x + this.BBQ.displayWidth / 2) / this.scale.gameSize.width) * rect.width;
-    const sx = side === "left"
-      ? (rect.left + bbqLeft) / 2
-      : (rect.right + bbqRight) / 2;
-    // Size the distractor to (almost) fill the side gap between BBQ and
-    // screen edge — large enough to be a real distractor but with a small
-    // margin so it doesn't overlap the BBQ.
-    const sideGap = side === "left" ? (bbqLeft - rect.left) : (rect.right - bbqRight);
-    const size = Math.min(sideGap * 0.9, rect.height * 0.55, 400);
+    const { sx, sy, size } = this.sideSlotMetrics(side);
     this.distractorEl.style.width = size + "px";
     this.distractorEl.style.height = size + "px";
     this.distractorEl.style.left = sx + "px";
@@ -257,10 +307,28 @@ class GameScene extends Phaser.Scene {
     // re-set src with cache-buster so the GIF restarts from frame 0
     this.distractorEl.src = "assets/images/" + gifFile + "?t=" + Date.now();
     this.distractorEl.style.display = "block";
+
+    // Distractor takes priority on its side — hide the bomb GIF there if one
+    // is currently shown, so they don't overlap.
+    if (gvars.bombActive) {
+      const sideEl = side === "left" ? this.bombElLeft : this.bombElRight;
+      if (sideEl) sideEl.style.display = "none";
+    }
   }
 
   hideDistractor() {
     if (this.distractorEl) this.distractorEl.style.display = "none";
+    // If a bomb is still active when the distractor ends, restore the bomb
+    // GIF on the side that was just freed.
+    if (gvars.bombActive) {
+      ["left", "right"].forEach((side) => {
+        const el = side === "left" ? this.bombElLeft : this.bombElRight;
+        if (!el || el.style.display === "block") return;
+        this.placeSideImg(el, side);
+        el.src = "assets/images/bomb.gif?t=" + Date.now() + "_" + side;
+        el.style.display = "block";
+      });
+    }
   }
 
   advanceDistractors() {

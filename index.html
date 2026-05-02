@@ -17,6 +17,33 @@
     }
     #game { position: fixed; inset: 0; }
     canvas { display: block; touch-action: manipulation; }
+
+    /* Portrait lock for phones — the layout needs landscape width for the
+       grill plus side distractors. Hides everything until the device is
+       rotated. Only triggers on small portrait viewports (phones), not on
+       wider tablets / desktop where portrait can still fit the layout. */
+    #rotate-prompt { display: none; }
+    @media (orientation: portrait) and (max-width: 900px) {
+      #game { visibility: hidden; }
+      #instructions { display: none !important; }
+      #rotate-prompt {
+        display: flex;
+        position: fixed; inset: 0; z-index: 5000;
+        background: #0a0c12;
+        color: #f0f0f0;
+        align-items: center; justify-content: center;
+        flex-direction: column; gap: 18px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        text-align: center; padding: 24px;
+      }
+      #rotate-prompt .icon { font-size: 64px; animation: rotateHint 2s ease-in-out infinite; }
+      #rotate-prompt .msg { font-size: 18px; line-height: 1.5; max-width: 320px; }
+      #rotate-prompt .he { direction: rtl; }
+      @keyframes rotateHint {
+        0%, 100% { transform: rotate(0deg); }
+        50% { transform: rotate(-90deg); }
+      }
+    }
   </style>
 
   <!-- Force fresh JS every load — local dev only -->
@@ -26,6 +53,11 @@
 </head>
 <body>
   <div id="game"></div>
+  <div id="rotate-prompt">
+    <div class="icon">📱</div>
+    <div class="msg">Please rotate your device to landscape.</div>
+    <div class="msg he" lang="he">סובב את המכשיר למצב לרוחב.</div>
+  </div>
 
   <!-- Phaser 3 from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>

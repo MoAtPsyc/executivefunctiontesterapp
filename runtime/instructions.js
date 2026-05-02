@@ -69,7 +69,7 @@ window.showInstructions = function (onBegin) {
         <h1>How to play</h1>
         <ul>
           <li><span class="ok">Click</span> meat when its ring is <b>orange</b> (ready).</li>
-          <li><span class="no">Do not click</span> when the ring is red (raw) or after it burns.</li>
+          <li><span class="no">Do not click</span> when the ring is blue (raw) or after it burns.</li>
           <li><span class="no">Do not click anything</span> when the screen edges flash <b>red</b>.</li>
           <li>Ignore the videos that appear at the side — they are distractions.</li>
         </ul>
@@ -78,7 +78,7 @@ window.showInstructions = function (onBegin) {
         <h1>הוראות</h1>
         <ul>
           <li><span class="ok">לחץ</span> על הבשר כשהטבעת <b>כתומה</b> (מוכן).</li>
-          <li><span class="no">אל תלחץ</span> כשהטבעת אדומה (נא) או אחרי שהבשר נשרף.</li>
+          <li><span class="no">אל תלחץ</span> כשהטבעת כחולה (נא) או אחרי שהבשר נשרף.</li>
           <li><span class="no">אל תלחץ בכלל</span> כשקצוות המסך מהבהבים ב<b>אדום</b>.</li>
           <li>התעלם מהסרטונים בצדדים — הם מסיחי דעת.</li>
         </ul>
@@ -104,7 +104,7 @@ window.showInstructions = function (onBegin) {
 
   // Draw the three meat states using the custom burger images.
   const samples = [
-    { id: "exRaw",   src: "assets/images/burger_raw.png",   ringColor: "#d14a4a" },
+    { id: "exRaw",   src: "assets/images/burger_raw.png",   ringColor: "#3a7ad1" },
     { id: "exReady", src: "assets/images/burger_ready.png", ringColor: "#e89a3a" },
     { id: "exBurnt", src: "assets/images/burger_burnt.png", ringColor: "#222222" },
   ];

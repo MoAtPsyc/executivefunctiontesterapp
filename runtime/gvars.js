@@ -39,7 +39,9 @@ window.gvars = {
   // Fixed pattern so every participant gets the same sequence — required for
   // norming data across users. Each entry = level (1–10), held for
   // segmentDurationMs. Total runtime = schedule.length * segmentDurationMs.
-  levelSchedule: [1, 2, 3, 1, 1, 4, 5, 2, 6, 7, 3, 1, 8, 9, 10, 1, 1, 10, 1, 1],
+  // Shortened schedule — level-1 warm-up segments removed so each lap is
+  // ~100s of testing instead of ~200s. Same fixed pattern for every lap.
+  levelSchedule: [1, 8, 4, 10, 3, 9, 7, 6, 5, 2],
   segmentDurationMs: 10000,
   // session timing (set at session start)
   sessionStartMs: 0,
@@ -51,12 +53,13 @@ window.gvars = {
   // predetermined perimeter position. While present:
   //   - meat ticking is paused (no raw/ready/burnt counts can occur)
   //   - any click anywhere = flexibility++ (failed response inhibition)
-  bombIntervalMs: 40000,        // bombs every 40s
+  bombIntervalMs: 23000,        // bombs every 23s
   bombDurationMs: 5000,
-  bombFirstAppearanceMs: 40000, // first bomb at t=40s (skip warm-up window)
+  bombFirstAppearanceMs: 30000, // first bomb at t=30s — yields 3 bombs per ~100s lap
   // Predetermined position indices into GameScene.bombPositions (8 perimeter
-  // slots). Fixed so every user sees the same sequence.
-  bombPositionSchedule: [0, 3, 6, 1, 4, 7, 2, 5, 0],
+  // slots). Fixed so every user sees the same sequence. 5 entries is enough
+  // headroom — only the first 3 fit in a lap, the rest are skipped.
+  bombPositionSchedule: [0, 3, 6, 1, 4],
   bombActive: false,
   bombStartedAt: 0,   // ms timestamp of current bomb's onset (scene clock)
   nextBombIndex: 0,
