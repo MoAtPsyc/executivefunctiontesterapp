@@ -11,7 +11,12 @@ document.addEventListener("DOMContentLoaded", function () {
     backgroundColor: "#1d1d24",
 
     scale: {
-      mode: Phaser.Scale.FIT,
+      // RESIZE (not FIT) — FIT locks the canvas to its initial aspect ratio,
+      // so a page that first loads in portrait gets letterboxed into a tall
+      // strip after rotating to landscape. RESIZE makes the canvas always
+      // fill the parent; the scene restart on orientationchange recomputes
+      // the BBQ/grid layout against the new dimensions.
+      mode: Phaser.Scale.RESIZE,
       autoCenter: Phaser.Scale.CENTER_BOTH,
       width: size.width,
       height: size.height,
